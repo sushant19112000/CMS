@@ -1,0 +1,38 @@
+export const Blogspagination = ({ data }) => {
+  const itemsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastBlog = currentPage * itemsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - itemsPerPage;
+  const currentBlogs = data.slice(indexOfFirstBlog, indexOfLastBlog);
+
+  for (let i of currentBlogs) {
+    console.log(i, 'current Blogs')
+  }
+
+  const renderBlogs = () => {
+    const datalist = []
+    const fruitList = [];
+    for (const blog of currentBlogs) {
+      fruitList.push(
+        <div className="col-11 col-md-6 col-lg-4" key={blog.id}>
+          <div className="card rounded ms-2 ms-md-0" style={{ width: "18rem", border: "0", height: "300px" }}>
+            <img className="rounded" src={`/${blog.img}`} alt="Card image cap" style={{ height: "200px", border: "0" }} />
+            <div>
+              <p style={{ fontSize: "12px", color: 'Navy Blue', fontWeight: '600' }}>{blog.author}</p>
+            </div>
+            <div>
+              <NextLink  href={`/blogs/${blog.id}`} passHref>
+            <p style={{ fontSize: '14px', fontWeight: 700 }}>{blog.title}</p>
+            </NextLink>
+            </div>
+           
+          </div>
+        </div>
+
+      );
+    }
+    return <ul>{fruitList}</ul>;
+  };
+  return <div>{renderBlogs()}</div>;
+}
+

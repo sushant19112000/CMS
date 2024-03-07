@@ -1,0 +1,21 @@
+   <form style={{ margin: '' }}>
+                                    <BsSearch
+                                        style={{ position: 'relative', right: '-25px', zIndex: 2, cursor: 'pointer', marginRight: '2px' }}
+                                        onClick={handleSearchIconClick}
+                                    />
+                                    <input
+                                        type="text" value={searchTerm}
+                                        onChange={handleSearchChange}
+                                        style={{
+                                            paddingLeft: '25px', width: `${inputWidth}px`, height: '32px', transition: 'width 0.3s ease', borderRadius: '17px', border: '1px solid silver', outline: 'none',
+                                            ...(inputWidth > 0 && { border: '1px solid silver' }),
+                                        }}
+
+                                    />
+                                    {inputWidth > 0 && (
+                                        <BsX
+                                            style={{ position: 'relative', left: '-25px', zIndex: 2, cursor: 'pointer' }}
+                                            onClick={handleSearchIconClick}
+                                        />
+                                    )}
+                                </form>

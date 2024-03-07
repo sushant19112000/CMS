@@ -1,0 +1,14 @@
+  {Array.from({ length: Math.ceil(data.length / itemsPerPage) }, (_, index) => (
+              <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
+                <button
+                  onClick={() => {
+                    paginate(index + 1)  
+                    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+                }}
+                  className={`page-link ${index + 1 === currentPage ? 'bg-dark text-white' : 'text-black fw-500'}`}
+                >
+                  {index + 1}
+                  
+                </button>
+              </li>
+            ))}

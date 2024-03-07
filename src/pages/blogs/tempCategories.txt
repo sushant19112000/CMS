@@ -1,0 +1,69 @@
+<div className="d-flex  flex-wrap  mb-2" >
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small',fontWeight:'700' }}>
+                                    Artificial Intelligence
+                                </button>
+                            </div>
+                           
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Compliance
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Content Syndication
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Demand Generation
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Intent Data
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Lead Generation
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Market Research
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Marketing Insight
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    B2B
+                                </button>
+                            </div>
+                       
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Sales Insights
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Surveys
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Tools and Technologies
+                                </button>
+                            </div>
+                            <div className='me-1 mb-2'>
+                                <button className='btn' style={{ backgroundColor: '#42454a', color: 'white', fontSize: 'small' }}>
+                                    Uncharted
+                                </button>
+                            </div>
+                        </div>

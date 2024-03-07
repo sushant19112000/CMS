@@ -1,0 +1,15 @@
+/* Display dropdown items on hover */
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+/* Prevent stickiness on click */
+.dropdown > .dropdown-toggle:active {
+  pointer-events: none;
+}
+
+/* Ensure dropdown items hide when not hovered */
+.dropdown-menu {
+  display: none;
+}
+

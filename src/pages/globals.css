@@ -1,0 +1,128 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Display dropdown items on hover */
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+/* Prevent stickiness on click */
+.dropdown > .dropdown-toggle:active {
+  pointer-events: none;
+}
+
+/* Ensure dropdown items hide when not hovered */
+.dropdown-menu {
+  display: none;
+}
+
+
+
+
+
+
+
+/* Navbar button */
+button.navbar-toggler:focus,
+button.navbar-toggler:active {
+  outline: none; /* Remove the default outline */
+  border: none;  /* Remove the border */
+  /* Add any additional styling as needed */
+}
+
+
+
+
+
+
+
+
+.blogimg {
+  height: 230px;
+}
+
+.heroimgcenter {
+  height: 580px;
+}
+.thirdsecimg{
+  width: 100%;
+  height: 500px;
+}
+
+
+/* for screen size smaller than 767px */
+
+@media (max-width: 767px) {
+  .blogimg {
+    height: 180px;
+  }
+
+  .heroimg {
+    width: 120%;
+  }
+
+  .heroimgcenter {
+    margin: 25px 0px;
+    height: 420px;
+  }
+
+  .thirdsecimg{
+    width: 100%;
+    height: 220px;
+  }
+}
+/* for screen size smaller than 767px */
+
+/* for screen size smaller than 991px and greater than 767px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .blogimg {
+    height: 180px;
+  }
+
+  .heroimgcenter {
+    height: 312px;
+  }
+}
+/* for screen size smaller than 991px and greater than 767px */
+
+/* for screen size smaller than 1024px and greater than 992px */
+@media (min-width: 992px) and (max-width: 1024px) {
+  .blogimg {
+    height: 180px;
+  }
+
+  .heroimgcenter {
+    height: 420px;
+  }
+}
+/* for screen size smaller than 1024px and greater than 992px */
+
+/* for screen size smaller than 1100px and greater than 1025px */
+@media (min-width: 1025px) and (max-width: 1100px) {
+  .blogimg {
+    height: 180px;
+  }
+
+  .heroimgcenter {
+    height: 420px;
+  }
+}
+/* for screen size smaller than 1100px and greater than 1025px */
+
+
+/* for screen size smaller than 1200px and greater than 1100px */
+@media (min-width: 1100px) and (max-width: 1200px) {
+  .heroimgcenter {
+    height: 420px;
+  }
+}
+/* for screen size smaller than 1200px and greater than 1100px */
+
+/* for screen size smaller than 1399px and greater than 1200px */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .heroimgcenter {
+    height: 500px;
+  }
+}
+

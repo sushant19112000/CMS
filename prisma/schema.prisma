@@ -1,0 +1,201 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model Users {
+  id        Int      @id @default(autoincrement())
+  is_admin  Boolean 
+  username  String
+  email     String
+  password  String
+  contact_number String
+}
+
+
+//Blogs 
+model Blogs {
+  id        Int        @id @default(autoincrement())
+  date      DateTime
+  title     String
+  content   String
+  author    String
+  paragraph String
+  img       String
+  categoryId Int
+  category   BlogCategories @relation(fields: [categoryId], references: [id])
+}
+
+model BlogCategories{
+  id        Int      @id @default(autoincrement())
+  name      String 
+  blogs     Blogs[]
+}
+
+// Casestudies
+model CaseStudies {
+  id        Int        @id @default(autoincrement())
+  date      DateTime
+  title     String
+  content   String
+  author    String
+  paragraph String
+  img       String
+  categoryId Int
+  category   CaseStudiesCategories @relation(fields: [categoryId], references: [id])
+}
+
+model CaseStudiesCategories{
+  id        Int      @id @default(autoincrement())
+  name      String 
+  casestudies     CaseStudies[]
+}
+
+
+// Research 
+model Research {
+  id        Int        @id @default(autoincrement())
+  date      DateTime
+  title     String
+  content   String
+  author    String
+  paragraph String
+  img       String
+  categoryId Int
+  category   ResearchCategories @relation(fields: [categoryId], references: [id])
+}
+
+model ResearchCategories{
+  id        Int      @id @default(autoincrement())
+  name      String 
+  research    Research[]
+}
+
+
+//Insights
+model Insights {
+  id        Int        @id @default(autoincrement())
+  date      DateTime
+  title     String
+  content   String
+  author    String
+  paragraph String
+  img       String
+  categoryId Int
+ 
+  category   InsightsCategories @relation(fields: [categoryId], references: [id])
+}
+
+model InsightsCategories{
+  id        Int      @id @default(autoincrement())
+  name      String 
+  insights    Insights[]
+}
+
+//Whitepapers
+
+model Whitepapers {
+  id        Int        @id @default(autoincrement())
+  date      DateTime
+  title     String
+  content   String
+  author    String
+  paragraph String
+  img       String
+  categoryId Int
+  category   WhitepapersCategories @relation(fields: [categoryId], references: [id])
+}
+
+model WhitepapersCategories{
+  id        Int      @id @default(autoincrement())
+  name      String 
+  whitepapers   Whitepapers[]
+}
+
+model Contact{
+   id Int  @id @default(autoincrement())
+   fullName  String
+   businessEmail String
+   phoneNumber String
+   companyName String
+   jobTitle String
+   services String
+   country String
+   optIn   String
+}
+
+model Subscribe{
+  id Int  @id @default(autoincrement())
+  email  String 
+  comment  String 
+}
+
+
+model asset{
+  id Int  @id @default(autoincrement())
+  name              String   @unique
+  landingpages landingpage[]
+  mailers   mailer[]
+  downloadpages downloadpage[]
+}
+
+
+model mailer{
+  id Int  @id @default(autoincrement())
+  url String
+  title String
+  assetId Int
+  content String @default("Html Content")
+  imageUrl String   @default("imageUrl")
+  imageHeight String   @default("imageHeight")
+  imageWidth String     @default("imageWidth")
+  asset   asset @relation(fields: [assetId], references: [id])
+  landingpageurl  String  @default("landingpage url")
+}
+
+model downloadpage{
+  id Int @id @default(autoincrement())
+  url String
+  title String
+  assetId Int
+  imageUrl String   @default("imageUrl")
+  imageHeight String   @default("imageHeight")
+  imageWidth String     @default("imageWidth")
+  asset   asset @relation(fields: [assetId], references: [id])
+}
+
+model landingpage{
+  id Int @id @default(autoincrement())
+  url String
+  title String
+  assetId Int
+  data    String
+  formdata String  @default("formData")
+  downloadpageurl String @default("Download url")
+  content String @default("Html Content")
+  asset   asset @relation(fields: [assetId], references: [id])
+  imageUrl String   @default("imageUrl")
+  imageHeight String   @default("imageHeight")
+  imageWidth String     @default("imageWidth")
+}
+
+
+
+
+
+
+
+
+
+
+

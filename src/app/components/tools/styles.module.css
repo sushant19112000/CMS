@@ -1,0 +1,5 @@
+@import url('/src/pages/fonts.css');
+
+.container{
+    font-family: 'Roboto';
+}
