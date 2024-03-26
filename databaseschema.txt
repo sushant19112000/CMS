@@ -1,0 +1,47 @@
+model Campaign {
+  id            Int          @id @default(autoincrement())
+  name          String
+  code          String       @unique
+  landingPages  LandingPage[]
+  mailers       Mailer[]
+  downloadPages DownloadPage[]
+}
+
+model Mailer {
+  id              Int      @id @default(autoincrement())
+  url             String
+  title           String
+  campaignCode    String
+  content         String   @default("Html Content")
+  imageUrl        String   @default("imageUrl")
+  imageHeight     String   @default("imageHeight")
+  imageWidth      String   @default("imageWidth")
+  campaign        Campaign @relation(fields: [campaignCode], references: [code])
+  landingPageUrl  String   @default("landingpage url")
+}
+
+model DownloadPage {
+  id              Int      @id @default(autoincrement())
+  url             String
+  title           String
+  campaignCode    String
+  imageUrl        String   @default("imageUrl")
+  imageHeight     String   @default("imageHeight")
+  imageWidth      String   @default("imageWidth")
+  campaign        Campaign @relation(fields: [campaignCode], references: [code])
+}
+
+model LandingPage {
+  id                Int      @id @default(autoincrement())
+  url               String
+  title             String
+  campaignCode      String
+  data              String
+  formData          String   @default("formData")
+  downloadPageUrl   String   @default("Download url")
+  content           String   @default("Html Content")
+  campaign          Campaign @relation(fields: [campaignCode], references: [code])
+  imageUrl          String   @default("imageUrl")
+  imageHeight       String   @default("imageHeight")
+  imageWidth        String   @default("imageWidth")
+}

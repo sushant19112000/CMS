@@ -1,6 +1,8 @@
 import React from 'react';
 import RootLayout from './layout'; // Adjust the import path
 import Head from 'next/head';
+import { RecoilRoot } from "recoil";
+import '@/app/configs/recoil'
 export default function MyApp({ Component, pageProps }) {
 
   return (
@@ -12,8 +14,9 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
 
       <RootLayout>
-
-        <Component {...pageProps} />
+        <RecoilRoot>
+            <Component {...pageProps} />
+        </RecoilRoot>
       </RootLayout>
     </div>
   )

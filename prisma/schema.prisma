@@ -140,10 +140,10 @@ model Subscribe{
   comment  String 
 }
 
-
-model asset{
+model campaign{
   id Int  @id @default(autoincrement())
-  name              String   @unique
+  name   String 
+  code String @unique
   landingpages landingpage[]
   mailers   mailer[]
   downloadpages downloadpage[]
@@ -154,44 +154,46 @@ model mailer{
   id Int  @id @default(autoincrement())
   url String
   title String
-  assetId Int
+  campaignCode String
   content String @default("Html Content")
   imageUrl String   @default("imageUrl")
   imageHeight String   @default("imageHeight")
   imageWidth String     @default("imageWidth")
-  asset   asset @relation(fields: [assetId], references: [id])
+  campaign   campaign @relation(fields: [campaignCode], references: [code])
   landingpageurl  String  @default("landingpage url")
+  logoSrc String   @default("imageUrl")
+  logoHeight String   @default("imageHeight")
+  logoWidth String     @default("imageWidth")
 }
 
 model downloadpage{
   id Int @id @default(autoincrement())
   url String
   title String
-  assetId Int
+  campaignCode String
   imageUrl String   @default("imageUrl")
   imageHeight String   @default("imageHeight")
   imageWidth String     @default("imageWidth")
-  asset   asset @relation(fields: [assetId], references: [id])
+  logoSrc String   @default("imageUrl")
+  logoHeight String   @default("imageHeight")
+  logoWidth String     @default("imageWidth")
+  campaign   campaign @relation(fields: [campaignCode], references: [code])
 }
 
 model landingpage{
   id Int @id @default(autoincrement())
   url String
   title String
-  assetId Int
+  campaignCode String
   data    String
   formdata String  @default("formData")
   downloadpageurl String @default("Download url")
   content String @default("Html Content")
-  asset   asset @relation(fields: [assetId], references: [id])
-  imageUrl String   @default("imageUrl")
-  imageHeight String   @default("imageHeight")
-  imageWidth String     @default("imageWidth")
+  campaign   campaign @relation(fields: [campaignCode], references: [code])
+  logoSrc String   @default("imageUrl")
+  logoHeight String   @default("imageHeight")
+  logoWidth String     @default("imageWidth")
 }
-
-
-
-
 
 
 

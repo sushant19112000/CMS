@@ -17,7 +17,7 @@ export default function LandingPage({ data, error }) {
 
             <div className="col-md-10">
                 <div className="text-center" >
-                    <img src="" style={{ marginBottom: '15px' }} alt={data.title} />
+                    <img src={`/campaign/logos/${data.logoSrc}`} style={{ marginBottom: '15px',height:`${data.imageHeight}`,width:`${data.imageWidth}` }} alt={data.title} />
                 </div>
 
                 <div className="row">

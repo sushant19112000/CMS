@@ -19,3 +19,4 @@ export const formData3 = {
     "specialFields":
         [{ "id": "question2", "type": "select", "label": "Pick any two", "options": [{ "value": "1", "label": "1" }, { "value": "2", "label": "2" }] }]
 }
+

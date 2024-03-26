@@ -19,7 +19,6 @@ export const addBlog = async (blog) => {
   try {
 
     const specificDate = new Date('2023-10-24T14:30:00.000Z');
-
     const Blog = await dataParser(blog)
     const categoryExists=await prisma.blogCategories.findFirst({
       where: { name:Blog.category }
@@ -55,7 +54,7 @@ export const updateBlog = async (id, updatedBlog) => {
       throw new Error("Blog does not exist");
     }
 
-    const updated = await prisma.blog.update({
+    const updated = await prisma.blogs.update({
       where: { id },
       data: updatedBlog,
     });

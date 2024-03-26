@@ -7,8 +7,8 @@ export const getLandingPage = async (url) => {
   try {
     const data = await prisma.landingpage.findFirst({
       where: { url: url },
-      include: {
-        asset: true
+      include:{
+        campaign:true
       }
     });
     if (!data) {
@@ -56,6 +56,24 @@ export const addLandingPageData = async (url, data) => {
     throw new(error)
     console.error('Error appending data to landing page:', error);
   }
+}
+
+export const addLandingPage=async (data)=>{
+ 
+  try{
+    const landingpage = await prisma.landingpage.create({
+      data:data
+    });
+
+    return landingpage;
+
+  }
+  catch(e){
+    console.log(e,'error adding landingpage')
+    
+  }
+
+
 }
 
 

@@ -85,7 +85,7 @@ export const Navigation = () => {
   const handleSearchTermchange=(e)=>{
     setsearchTerm(e.target.value)
   }
-  console.log(currentUrl)
+ 
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light bp-3 tp-3" style={{ backgroundColor: '#ffffff', fontFamily: 'Roboto Mono' }}>

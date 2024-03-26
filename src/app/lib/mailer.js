@@ -8,7 +8,7 @@ export const getMailer = async (url) => {
       const data = await prisma.mailer.findFirst({
         where: { url:url },
         include:{
-          asset:true
+          campaign:true
         }
       });
       
@@ -23,4 +23,20 @@ export const getMailer = async (url) => {
 };
 
 
-  
+
+
+export const addMailer = async (data) => {
+  try {
+    const newdata = await prisma.mailer.create({
+     data:data
+    });
+    
+    if (!newdata) {
+      throw new Error("Mailer not created");
+    }
+    return newdata;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to add new ");
+  }
+};
