@@ -269,7 +269,7 @@ export const UploadAsset = () => {
       imageUrl: "",
       imageHeight: "",
       imageWidth: "",
-      banner: new Blob([banner], { type: `${banner.type}` }),
+      banner: "",
     })
 
   };
@@ -301,9 +301,15 @@ export const UploadAsset = () => {
         <>{alert}</>
       )}
       <div className='row justify-content-center'>
-        <div className="col-md-8">
-          <button className="btn btn-primary" onClick={uploadAll}>Upload all</button>
-
+        <div className="col-md-9">
+          <div className="row">
+            <div className="col-md-10">
+              Upload Asset(Download Page,Landing Page,Mailer)
+            </div>
+            <div className='col-md-2'>
+               <button className="btn btn-primary" style={{width:'140px'}} onClick={uploadAll}>Upload</button>
+            </div>
+          </div>
         </div>
       </div>
 

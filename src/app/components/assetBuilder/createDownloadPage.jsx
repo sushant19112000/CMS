@@ -31,8 +31,6 @@ export const CreateDownloadPage = ({ nextTab, clear }) => {
     if (download.title) {
       setShowDownloadPreview(true)
     }
-    console.log(download)
-
   }
 
 

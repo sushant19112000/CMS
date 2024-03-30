@@ -2,22 +2,19 @@ import React, { useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 
-export const MailerPreview = ({ temp, closeModal }) => {
+export const JbwMailerPreview = ({ temp, closeModal }) => {
     const [data, setData] = useState(temp)
     const [fullscreen, setFullscreen] = useState(true);
     const [show, setShow] = useState(true);
     const [bannerPreview, setBannerPreview] = useState(null)
     const [banner, setBanner] = useState(data.banner)
     const [logo,setLogo]=useState(null)
+    
     useEffect(() => {
         convertBlobToFile(data.banner)
         convertLogoBlobToFile(data.logo)
-        console.log('use Effect ')
     }, [data])
 
-    useEffect(() => {
-        console.log(data)
-    }, [bannerPreview, data])
 
 
     const convertBlobToFile = (banner) => {
@@ -33,11 +30,10 @@ export const MailerPreview = ({ temp, closeModal }) => {
                 };
                 reader.readAsDataURL(file);
             }
-
-            // Verify the File object
         }
 
     }
+
 
     const convertLogoBlobToFile = (logo) => {
         if (logo instanceof Blob) {
@@ -50,8 +46,6 @@ export const MailerPreview = ({ temp, closeModal }) => {
                 };
                 reader.readAsDataURL(file);
             }
-
-            // Verify the File object
         }
 
     }
@@ -61,10 +55,6 @@ export const MailerPreview = ({ temp, closeModal }) => {
 
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
             <Modal show={show} onHide={handleClose} fullscreen={fullscreen}>
                 <Modal.Header closeButton>
                     <Modal.Title>
@@ -82,7 +72,8 @@ export const MailerPreview = ({ temp, closeModal }) => {
                                 maxHeight: 0,
                                 maxWidth: 0,
                                 opacity: 0,
-                                overflow: "hidden"
+                                overflow: "hidden",
+                                fontFamily:""
                             }}
                         >
                             Special second edition now available
@@ -272,7 +263,8 @@ export const MailerPreview = ({ temp, closeModal }) => {
                                                                                                                             target="_blank"
                                                                                                                             style={{
                                                                                                                                 textDecoration: "none",
-                                                                                                                                color: "#ffffff"
+                                                                                                                                color: "#ffffff",
+                                                                                                                                fontFamily:'"Lato", sans-serif',
                                                                                                                             }}
                                                                                                                         >
                                                                                                                             {data.title}
@@ -327,7 +319,8 @@ export const MailerPreview = ({ temp, closeModal }) => {
                                                                                                                                         align="left"
                                                                                                                                         valign="top"
                                                                                                                                     >
-                                                                                                                                        <div dangerouslySetInnerHTML={{ __html: data.content }} style={{margin:0,padding:0}}></div>
+                                                                                                                                        <div dangerouslySetInnerHTML={{ __html: data.content }} style={{margin:0,padding:0, fontFamily:
+                                                                                                                                                '"Lato", sans-serif !important'}}></div>
                                                                                                                                         <p>&nbsp;</p>
                                                                                                                                     </td>
                                                                                                                                     <td valign="top">
@@ -452,8 +445,7 @@ export const MailerPreview = ({ temp, closeModal }) => {
                                                                                                         }}
                                                                                                         align="center"
                                                                                                     >
-                                                                                                        Lynchpin Media | 63/66 Hatton Gardens,
-                                                                                                        London EC1N 8LE
+                                                                                                       {data.footer}
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr>
@@ -466,7 +458,7 @@ export const MailerPreview = ({ temp, closeModal }) => {
                                                                                                         align="center"
                                                                                                     >
                                                                                                         <a
-                                                                                                            href="http://lynchpin.moosend.com/unsubscribe/454cff35-6f90-4990-819e-b7ffb4b9c9e9/00000000-0000-0000-0000-000000000000/"
+                                                                                                            href={data.unsubscribe}
                                                                                                             target="_blank"
                                                                                                             style={{
                                                                                                                 fontSize: 11,
@@ -478,7 +470,7 @@ export const MailerPreview = ({ temp, closeModal }) => {
                                                                                                         </a>{" "}
                                                                                                         |{" "}
                                                                                                         <a
-                                                                                                            href="http://lynchpin.moosend.com/update/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000"
+                                                                                                            href={data.updateProfile}
                                                                                                             target="_blank"
                                                                                                             style={{
                                                                                                                 fontSize: 11,
@@ -490,7 +482,7 @@ export const MailerPreview = ({ temp, closeModal }) => {
                                                                                                         </a>{" "}
                                                                                                         |{" "}
                                                                                                         <a
-                                                                                                            href="http://lynchpinmedia.co.uk/privacy-policy/"
+                                                                                                            href={data.privacyLink}
                                                                                                             target="_blank"
                                                                                                             style={{
                                                                                                                 fontSize: 11,

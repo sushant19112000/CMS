@@ -164,6 +164,10 @@ model mailer{
   logoSrc String   @default("imageUrl")
   logoHeight String   @default("imageHeight")
   logoWidth String     @default("imageWidth")
+  footer String  @default("561 7th Ave 4th fl, New York NY 10018, United States")
+  unsubscribe String
+  privacy  String
+  updateProfile  String
 }
 
 model downloadpage{
@@ -180,10 +184,12 @@ model downloadpage{
   campaign   campaign @relation(fields: [campaignCode], references: [code])
 }
 
+
 model landingpage{
   id Int @id @default(autoincrement())
   url String
   title String
+  headerBackgroundColor String
   campaignCode String
   data    String
   formdata String  @default("formData")
@@ -193,6 +199,7 @@ model landingpage{
   logoSrc String   @default("imageUrl")
   logoHeight String   @default("imageHeight")
   logoWidth String     @default("imageWidth")
+  template String   @default("JWZ")
 }
 
 

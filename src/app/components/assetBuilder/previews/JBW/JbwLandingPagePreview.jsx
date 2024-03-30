@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import { DynamicForm3 } from "@/app/components/dynamicForm/dynamicForm3";
-export const LandingPreview = ({ temp, closeModal }) => {
+export const JbwLandingPreview = ({ temp, closeModal }) => {
     const [data, setData] = useState(temp)
     const [fullscreen, setFullscreen] = useState(true);
     const [show, setShow] = useState(true);
@@ -19,6 +19,7 @@ export const LandingPreview = ({ temp, closeModal }) => {
 
 
     const convertBlobToFile = (banner) => {
+        console.log(banner)
         if (banner instanceof Blob) {
             const file = new File([banner], `${banner.type}`);
             console.log(file)
@@ -40,6 +41,10 @@ export const LandingPreview = ({ temp, closeModal }) => {
 
     return (
         <>
+            {/* <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button> */}
+
             <Modal show={show} onHide={handleClose} fullscreen={fullscreen}>
                 <Modal.Header closeButton>
                     <Modal.Title>Landing Preview</Modal.Title>
@@ -69,7 +74,7 @@ export const LandingPreview = ({ temp, closeModal }) => {
                                         <div dangerouslySetInnerHTML={{ __html: data.content }} />
                                     </div>
 
-                                    <DynamicForm3 data={JSON.parse(data.formdata)} optin={data.optin} />
+                                    <DynamicForm3 data={JSON.parse(data.formdata)}  />
 
                                 </div>
                             </div>

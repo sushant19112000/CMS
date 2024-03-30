@@ -1,5 +1,4 @@
 "use client";
-
 import { campaignState } from '@/app/atoms/campaign'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
@@ -17,7 +16,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export const CreateCampaign = ({ nextTab, clear }) => {
     const { data, error } = useSWR('/api/campaign', fetcher);
-    const [options,setOptions]=useState([])
+    const [options, setOptions] = useState([])
     const [name, setName] = useState("")
     const [code, setCode] = useState("")
     const [campaign, setCampaign] = useRecoilState(campaignState)
@@ -32,27 +31,14 @@ export const CreateCampaign = ({ nextTab, clear }) => {
         }
     }, [data]);
 
-    const postCampaign = () => {
-        console.log('campaign data posted ')
-        //then set campaign code       
-    }
     useEffect(() => {
         setCodeForView(campaign.code)
     }, [campaign])
-
-
-
-
-
 
     const handleCodeChange = (selectedoption) => {
         const value = selectedoption.value
         setCode(value)
     }
-
-    // const handleNameChange = (e) => {
-    //     setCode(e.target.value)
-    // }
 
     const handleNext = () => {
         if (code === "" && name === "") {
@@ -85,7 +71,7 @@ export const CreateCampaign = ({ nextTab, clear }) => {
 
                                 <div className="d-flex">
                                     <div>
-                                       Preview
+                                        Preview
                                     </div>
                                     <div className='ms-auto'>
                                         <button className='btn btn-danger' onClick={handleClearSelection}>Clear Data</button>
@@ -95,14 +81,10 @@ export const CreateCampaign = ({ nextTab, clear }) => {
 
                                 </div>
                                 <div>
-                                <span>Code:<span style={{ fontWeight: '900' }}>{codeForView}</span></span>
+                                    <span>Code:<span style={{ fontWeight: '900' }}>{codeForView}</span></span>
 
                                 </div>
                                 <hr></hr>
-
-
-                              
-                               
                             </div>
 
                         )

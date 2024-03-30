@@ -19,7 +19,10 @@ export const landingPageState = atom({
     content: "",
     imageUrl: "",
     imageHeight: "",
-    imageWidth: ""
+    imageWidth: "",
+    gdpr:"",
+    optin:"",
+    headerBackgroundColor:""
   }, // default value (aka initial value)
   effects_UNSTABLE: [persistAtom]
 });

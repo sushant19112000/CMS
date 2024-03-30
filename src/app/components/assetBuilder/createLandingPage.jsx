@@ -4,8 +4,8 @@ import { landingPageState } from "@/app/atoms/landingpage";
 import { useState, useEffect } from "react"
 import { useRecoilState } from "recoil";
 import { LandingPreview } from "./previews/landingPagePreview";
-
-
+import { LpmLandingPreview } from "./previews/LPM/LpmLandingPreview";
+import { Button } from 'react-bootstrap';
 
 
 
@@ -14,25 +14,28 @@ export default function CreateLandingPage({ nextTab, clear }) {
     const [title, setTitle] = useState("")
     const [headerLogo, setHeaderLogo] = useState("")
     const [headerLogoFile, setHeaderLogoFile] = useState(null);
+    const [headerBackgroundColor, setHeaderBackgroundColor] = useState("")
     const [logoPreview, setLogoPreview] = useState("")
     const [formdata, setFormData] = useState("")
+    const [privacy, setPrivacy] = useState("")
+    const [optin, setOptin] = useState("")
     const [content, setContent] = useState("")
     const [landingpage, setLandingPage] = useRecoilState(landingPageState)
     const [imageHeight, setImageHeight] = useState('auto')
     const [imageWidth, setImageWidth] = useState('auto')
+    const [previewDisabled, setPreviewDisabled] = useState(true)
     const [showLandingPreview, setShowLandingPreview] = useState(false)
+    const [showLpmLandingPreview, setShowLpmLandingPreview] = useState(false)
+    const [selectedTemplate, setSelectedTemplate] = useState("")
+    const [alert, setAlert] = useState(false)
 
-    const [previewTitle, setPreviewTitle] = useState("")
-    const [previewImage, setPreviewImage] = useState("")
-    const [previewUrl, setPreviewUrl] = useState("")
-
-
-    useEffect(() => {
-        setPreviewTitle(landingpage.title)
-        setPreviewImage(landingpage.imageUrl)
-        setPreviewUrl(landingpage.url)
-    }, [landingpage])
-
+    
+    const scrollToTop=()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    }
 
     const closeModal = () => {
         setShowLandingPreview(false)
@@ -44,8 +47,15 @@ export default function CreateLandingPage({ nextTab, clear }) {
         }
     }
 
+    const closeModalLpm = () => {
+        setShowLpmLandingPreview(false)
 
-
+    }
+    const showLpmModal = () => {
+        if (landingpage.title) {
+            setShowLpmLandingPreview(true)
+        }
+    }
 
     const handleHeaderLogoChange = (event) => {
         const file = event.target.files[0];
@@ -60,80 +70,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
         }
     };
 
-    // const uploadFunction =async () => {
-    //     if (!headerLogoFile) return;
-    //     const formData = new FormData();
-    //     formData.append('file', headerLogoFile);
-    //     const response = await fetch('/api/upload', {
-    //         method: 'POST',
-    //         body: formData,
-    //     });
-    //     return response;
-    // }
-
-
-
-    // const postData = async (fileName) => {
-    //     try{
-    //         const uploadResponse=await uploadFunction()
-    //         if (uploadResponse.ok){
-    //             const response = await fetch('/api/landingpage', {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 body: JSON.stringify({
-    //                     title: title,
-    //                     url: url,
-    //                     assetId: parseInt(assetId),
-    //                     data: "",
-    //                     formdata: formdata,
-    //                     downloadpageurl: downloadPageUrl,
-    //                     content: content,
-    //                     imageUrl: fileName,
-    //                     imageHeight: imageHeight,
-    //                     imageWidth: imageWidth
-    //                 }),
-    //             });
-    //             if (response.ok) {
-    //                 console.log('Header logo name sent to API successfully');
-    //                 // Reset form or perform other actions as needed
-    //             } else {
-    //                 console.error('Failed to send header logo name to API');
-    //             }
-
-    //         }
-    //         else{
-    //             console.log('Failed to post landing page');
-    //         }
-
-    //     }
-    //     catch(e){
-    //          console.log(e,'error posting landing page')
-    //     }
-    // }
-
-
-
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-
-    //     if (!headerLogoFile) {
-    //         console.log('No header logo selected');
-    //         return;
-    //     }
-    //     try {
-    //         const fileName = headerLogoFile.name;
-    //         // //search if the image is already in the landing page directory if does setLogo exists true else storeImage 
-    //         // const imageExists = await checkImageExists(fileName);
-    //         await postData(fileName);
-    //     } catch (error) {
-    //         console.error('Error storing header logo:', error);
-    //     }
-    // };
-
-
-
     const handleSubmit = (event) => {
         event.preventDefault();
         setLandingPage({
@@ -147,11 +83,14 @@ export default function CreateLandingPage({ nextTab, clear }) {
             content: content,
             imageUrl: headerLogo,
             imageHeight: imageHeight,
-            imageWidth: imageWidth
+            imageWidth: imageWidth,
+            privacy: privacy,
+            optin: optin,
+            headerBackgroundColor: headerBackgroundColor
         })
-
-        
-        // Perform submission logic here
+        scrollToTop()
+        setPreviewDisabled(false)
+     
     };
 
     const handleClear = () => {
@@ -166,16 +105,21 @@ export default function CreateLandingPage({ nextTab, clear }) {
             content: "",
             imageUrl: "",
             imageHeight: "",
-            imageWidth: ""
+            imageWidth: "",
+            privacy: "",
+            optin: "",
+            headerBackgroundColor: ""
         })
         clear('landingpage')
-        // Perform submission logic here
+        setSelectedTemplate("")
+        setAlert(false)
+        setPreviewDisabled(true)
     };
 
 
-  const handleNext = () => {
-    nextTab('mailer')
-  }
+    const handleNext = () => {
+        selectedTemplate != "" ? nextTab('mailer') : setAlert(true) && scrollToTop();
+    }
 
 
     return (
@@ -187,36 +131,84 @@ export default function CreateLandingPage({ nextTab, clear }) {
                         <div className="text-center mb-4">
                             <h3 style={{ fontWeight: '900' }}>Create landing Page</h3>
                         </div>
+
                         <div>
-                            {
-                                previewTitle && (
-                                    <div>
+                            {alert && (
+                                <div><h4>Please select a template</h4></div>
+                            )}
 
-                                        <div className="d-flex">
-                                            <div>
-                                                <button className='btn btn-primary' onClick={showModal}>
-                                                    Preview
-                                                </button>
+                            <div className="d-flex mb-3" >
 
+                                <div className="row " >
+                                    <div className="col-md-5" >
+                                        <div className="row" style={{ margin: 0, padding: 0, backgroundColor: 'white', border: '1px solid grey' }}>
+                                            <h4>JBW</h4>
+                                            <div className="col-md-6">
+                                                <div className="row" >
+                                                    <div className="col-md-1 pt-1 " style={{ border: '0' }}>
+
+                                                        <input className="" onChange={((e) => setSelectedTemplate('jbw'))} type="checkbox" label="Checkbox Label" disabled={previewDisabled} />
+
+                                                    </div>
+                                                    <div className="col" style={{ paddingTop: '0.3rem' }}>
+                                                        <span > Select</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className='ms-auto'>
+                                            <div className="col-md-5 text-start">
+                                                <Button variant="light" onClick={showModal} disabled={previewDisabled}>
+                                                    Preview
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5">
 
-                                                <button className='btn btn-danger' onClick={handleClear}> Clear Data</button>
+                                        <div className="row" style={{ margin: 0, padding: 0, backgroundColor: 'white', border: '1px solid grey' }}>
+                                            <h4>LPM </h4>
+                                            <div className="col-md-6">
+                                                <div className="row" >
+                                                    <div className="col-md-1 pt-1 " style={{ border: '0' }}>
 
+                                                        <input className="" onChange={((e) => setSelectedTemplate('lpm'))} type="checkbox" label="Checkbox Label" disabled={previewDisabled} />
+
+                                                    </div>
+                                                    <div className="col" style={{ paddingTop: '0.3rem' }}>
+                                                        <span > Select</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-5 text-start">
+                                                <Button variant="light" onClick={showLpmModal} disabled={previewDisabled}>
+                                                    Preview
+                                                </Button>
                                             </div>
 
                                         </div>
 
 
-
-                                        <hr></hr>
                                     </div>
+                                    <div className="col-md-2">
+                                        <button className="btn btn-danger" disabled={previewDisabled} onClick={handleClear}>ClearData</button>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            {
+                                showLandingPreview && !previewDisabled && (
+                                    <>
+                                        <LandingPreview temp={landingpage} closeModal={closeModal} />
+                                    </>
                                 )
                             }
                             {
-                                showLandingPreview && previewTitle && (
+                                showLpmLandingPreview && !previewDisabled && (
                                     <>
-                                        <LandingPreview temp={landingpage} closeModal={closeModal} />
+                                        <LpmLandingPreview temp={landingpage} closeModal={closeModalLpm} />
                                     </>
                                 )
                             }
@@ -231,10 +223,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                     <input className="form-control" type="text" value={url} onChange={e => setUrl(e.target.value)} required />
                                 </div>
                             </div>
-                            {/* <label>
-                                URL:
-                                <input type="text" value={url} onChange={e => setUrl(e.target.value)} />
-                            </label><br /> */}
 
                             <div className="row  mb-3">
                                 <div className="col-md-3">
@@ -246,10 +234,15 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                 </div>
                             </div>
 
-                            {/* <label>
-                                Title:
-                                <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
-                            </label><br /> */}
+                            <div className="row  mb-3">
+                                <div className="col-md-3">
+                                    Title Background Color
+                                </div>
+                                <div className="col">
+                                    <input type="text" className="form-control" value={headerBackgroundColor} onChange={e => setHeaderBackgroundColor(e.target.value)} />
+
+                                </div>
+                            </div>
 
                             <div className="row  mb-2">
                                 <div className="col-md-3">
@@ -260,16 +253,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                     {logoPreview && <img src={logoPreview} alt="Banner Preview" style={{ maxWidth: '100%', marginTop: '10px', marginTop: '10px', width: `${imageWidth}`, height: `${imageHeight}` }} />}
                                 </div>
                             </div>
-
-                            {/* <label>
-                                Header Logo:
-                                <input type="file" accept="image/*" onChange={handleHeaderLogoChange} />
-                            </label><br /> */}
-                            {/* 
-                            <label>
-                                Logo Height:
-                                <input type="text" value={imageHeight} onChange={e => setImageHeight(e.target.value)} />
-                            </label><br /> */}
 
                             <div className="row  mb-3">
                                 <div className="col-md-3">
@@ -289,17 +272,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                 </div>
                             </div>
 
-                            {/* <label>
-                                Logo Width:
-                                <input type="text" value={imageWidth} onChange={e => setImageWidth(e.target.value)} />
-                            </label><br /> */}
-
-
-
-                            {/* <label>
-                                Asset ID:
-                                <input type="text" value={assetId} onChange={e => setAssetId(e.target.value)} />
-                            </label><br /> */}
 
                             <div className="row  mb-3">
                                 <div className="col-md-3">
@@ -312,19 +284,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                 </div>
                             </div>
 
-
-
-                            {/* <label>
-                                Form Data:
-                                <textarea value={formdata} onChange={e => setFormData(e.target.value)} />
-                            </label><br /> */}
-
-
-                            {/* <label>
-                                Download Page URL:
-                                <input type="text" value={downloadPageUrl} onChange={e => setDownloadPageUrl(e.target.value)} />
-                            </label><br /> */}
-
                             <div className="row  mb-3">
                                 <div className="col-md-3">
                                     Content:
@@ -336,14 +295,17 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                 </div>
                             </div>
 
-                            {/* <label>
-                                Content:
-                                <textarea value={content} onChange={e => setContent(e.target.value)} />
-                            </label><br /> */}
+                            <div className="row  mb-3">
+                                <div className="col-md-3">
+                                    Optin
 
+                                </div>
+                                <div className="col">
+                                    <textarea rows={5} value={optin} className="form-control" onChange={e => setOptin(e.target.value)} placeholder="Use Html " />
 
+                                </div>
+                            </div>
 
-                           
 
                             <div className="d-flex">
                                 <div >

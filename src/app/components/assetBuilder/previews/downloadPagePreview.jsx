@@ -15,12 +15,7 @@ export const DownloadPreview = ({ temp, closeModal }) => {
 
   useEffect(() => {
     convertBlobToFile(data.banner)
-    console.log('use Effect ')
   }, [data])
-
-  useEffect(() => {
-    console.log(data)
-  }, [bannerPreview, data])
 
 
   const convertBlobToFile = (banner) => {
@@ -36,13 +31,10 @@ export const DownloadPreview = ({ temp, closeModal }) => {
         };
         reader.readAsDataURL(file);
       }
-
-      // Verify the File object
     }
-
   }
-  const handleClose = () => { setShow(false); closeModal() }
 
+  const handleClose = () => { setShow(false); closeModal() }
   const handleShow = () => { setShow(true); }
 
   return (
@@ -68,8 +60,6 @@ export const DownloadPreview = ({ temp, closeModal }) => {
               <div className="row justify-content-center mt-4 mb-5">
                 <div className="col">
                   <div className=''>
-
-
                     <center><img src={bannerPreview} style={{ maxWidth: '100%', marginTop: '10px', width: `${data.imageWidth}`, height: `${data.imageHeight}` }} /></center>
 
                   </div>

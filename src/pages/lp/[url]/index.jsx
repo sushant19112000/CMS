@@ -25,7 +25,7 @@ export default function LandingPage({ data, error }) {
                         <div dangerouslySetInnerHTML={{ __html: data.content }} />
                     </div>
 
-                    <DynamicForm3 data={JSON.parse(data.formdata)} landingpageurl={data.url} downloadpageurl={data.downloadpageurl} />
+                    <DynamicForm3 data={JSON.parse(data.formdata)} landingpageurl={data.url} downloadpageurl={data.downloadpageurl} optin={data.optin} privacy={JSON.parse(data.privacy)} />
 
                 </div>
             </div>

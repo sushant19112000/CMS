@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-export const DynamicForm3 = ({ data, landingpageurl, downloadpageurl,optin }) => {
+export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) => {
     const router = useRouter();
     const [formData, setFormData] = useState(data);
     const [formValues, setFormValues] = useState({});
@@ -35,9 +35,12 @@ export const DynamicForm3 = ({ data, landingpageurl, downloadpageurl,optin }) =>
     }
 
     return (
-        <div className='col-md-7'>
-            <h4 className='mb-2'>Please fill out the form below to download.</h4>
-            <form onSubmit={(e) => postData(e)}>
+        <div className='col'>
+          
+            <form onSubmit={(e) => postData(e)} style={{
+                fontSize: '16px', fontFamily:
+                    'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: '600'
+            }}>
                 {formData.normalFields && formData.normalFields.map(field => (
                     <div key={field.id} className='mb-2'>
                         <div className="">
@@ -195,16 +198,20 @@ export const DynamicForm3 = ({ data, landingpageurl, downloadpageurl,optin }) =>
                                         </div>
                                     </>
                                 )}
+
                             </div>
                         </div>
                     </>
                 ))}
+                <br></br>
+                <hr></hr>
+                <br></br>
 
                 <div
                     className="form-control mb-4"
-                    style={{ display: "flex", flexDirection: "column",border:'0',backgroundColor:'transparent' }}
+                    style={{ display: "flex", flexDirection: "column",backgroundColor:'transparent',border:'0' }}
                 >
-                    <p>
+                    <p style={{backgroundColor:'transparent',border:'0'}}>
                         By submitting, person agrees to {data.privacy.companyName} processing their info and
                         contacting them with regards to the event. You may unsubscribe at any time.
                         {data.privacy.companyName} web sites and communications are subject to their
@@ -230,11 +237,14 @@ export const DynamicForm3 = ({ data, landingpageurl, downloadpageurl,optin }) =>
                     <div  dangerouslySetInnerHTML={{ __html: optin }}></div>
                 </div>
 
-              
-                <button className='btn ' style={{backgroundColor:'#8596b0',width:'140px'}} type='submit' >Submit</button>
+               
+
+
+                <button className='btn ' style={{backgroundColor:'#8596b0',width:'140px',color:'white'}} type='submit' >Download</button>
             </form>
         </div>
     );
 }
 
-export default DynamicForm3;
+export default DynamicFormNew;
+
