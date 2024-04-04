@@ -2,54 +2,17 @@ import React, { useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 
-export const JbwMailerPreview = ({ temp, closeModal }) => {
+export const LpmMailerPreview = ({ temp }) => {
     const [data, setData] = useState(temp)
-    const [fullscreen, setFullscreen] = useState(true);
-    const [show, setShow] = useState(true);
-    const [bannerPreview, setBannerPreview] = useState(null)
-    const [logo,setLogo]=useState(null)
-    
-    useEffect(() => {
-        convertBlobToFile(data.banner)
-        convertLogoBlobToFile(data.logo)
-    }, [data])
-
-    const convertBlobToFile = (banner) => {
-        if (banner instanceof Blob) {
-            const file = new File([banner], `${banner.type}`);
-            if (file) {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    setBannerPreview(reader.result);
-                    console.log(bannerPreview, 'banner preview')
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    }
-    const convertLogoBlobToFile = (logo) => {
-        if (logo instanceof Blob) {
-            const file = new File([logo], `${logo.type}`);
-            if (file) {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    setLogo(reader.result);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    }
-    const handleClose = () => { setShow(false); closeModal() }
+    const [landingPageUrl,setLandingPageUrl]=useState("")
+    useEffect(()=>{
+        setData(temp)
+        setLandingPageUrl(temp.landingpageurl)
+    },[temp])
     return (
         <>
-            <Modal show={show} onHide={handleClose} fullscreen={fullscreen}>
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        Mailer Preview
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body style={{ backgroundColor: '#f3f4f6' }}>
-                    <>
+        
+                 
                         <div
                             style={{
                                 display: "none",
@@ -106,7 +69,7 @@ export const JbwMailerPreview = ({ temp, closeModal }) => {
                                                             >
                                                                 <span style={{ color: "#888888" }}>
                                                                     <a
-                                                                        href="/new-and-improved-sase-for-dummies-mailer"
+                                                                        href="#"
                                                                         style={{ color: "#000", textDecoration: "none" }}
                                                                     >
                                                                         View email in browser
@@ -132,7 +95,7 @@ export const JbwMailerPreview = ({ temp, closeModal }) => {
                                                             className="primary-content-wrap"
                                                             style={{
                                                                 border: "1px solid #e5e5e5",
-                                                                width: 640,
+                                                                width:data.imageWidth,
                                                                 background: "#FFFFFF"
                                                             }}
                                                         >
@@ -159,7 +122,7 @@ export const JbwMailerPreview = ({ temp, closeModal }) => {
                                                                                                                     <td width={20}>&nbsp;</td>
                                                                                                                     <td>
                                                                                                                         <img
-                                                                                                                            src={logo}
+                                                                                                                            src={`/campaigns/logos/${logoSrc}`}
                                                                                                                             border={0}
                                                                                                                             alt="Logo"
                                                                                                                             width={250}
@@ -197,17 +160,17 @@ export const JbwMailerPreview = ({ temp, closeModal }) => {
                                                                                             cellPadding={0}
                                                                                             cellSpacing={0}
                                                                                         >
-                                                                                          
+                                                                                        
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td>
-                                                                                                        <a href="#">
+                                                                                                        <a href={landingPageUrl}>
                                                                                                             <img
-                                                                                                                src={bannerPreview}
+                                                                                                                src={`/campaign/mailerbanners/${data.imgUrl}`}
+                                                                                                                style={{width:data.imageWidth,height:data.imageHeight}}
                                                                                                                 border={0}
                                                                                                                 alt="Hero Banner"
-                                                                                                                width={640}
-                                                                                                                height={250}
+                                                                                                              
                                                                                                             />
                                                                                                         </a>
                                                                                                     </td>
@@ -310,7 +273,7 @@ export const JbwMailerPreview = ({ temp, closeModal }) => {
                                                                                                                                         <p>&nbsp;</p>
                                                                                                                                     </td>
                                                                                                                                     <td valign="top">
-                                                                                                                                        <a href="#">
+                                                                                                                                        <a href={landingPageUrl}>
                                                                                                                                             <img
                                                                                                                                                 src="/campaign/buttons/Download_button_black.jpg"
                                                                                                                                                 border={0}
@@ -345,7 +308,7 @@ export const JbwMailerPreview = ({ temp, closeModal }) => {
                                                                                                                                                         valign="middle"
                                                                                                                                                     >
                                                                                                                                                         <a
-                                                                                                                                                            href="#"
+                                                                                                                                                            href={landingPageUrl}
                                                                                                                                                             target="_blank"
                                                                                                                                                             style={{
                                                                                                                                                                 color:
@@ -386,7 +349,7 @@ export const JbwMailerPreview = ({ temp, closeModal }) => {
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
-                                                                                   
+                                                                                
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -508,9 +471,8 @@ export const JbwMailerPreview = ({ temp, closeModal }) => {
                                 </tr>
                             </tbody>
                         </table>
-                    </>
-                </Modal.Body>
-            </Modal>
+                   
+            
         </>
     );
 }

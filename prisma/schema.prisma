@@ -167,6 +167,7 @@ model mailer{
   footer String  @default("561 7th Ave 4th fl, New York NY 10018, United States")
   unsubscribe String
   privacy  String
+  template String @default("JBW")
   updateProfile  String
 }
 
@@ -181,6 +182,8 @@ model downloadpage{
   logoSrc String   @default("imageUrl")
   logoHeight String   @default("imageHeight")
   logoWidth String     @default("imageWidth")
+  link  String
+  pdfSrc String
   campaign   campaign @relation(fields: [campaignCode], references: [code])
 }
 
@@ -199,7 +202,7 @@ model landingpage{
   logoSrc String   @default("imageUrl")
   logoHeight String   @default("imageHeight")
   logoWidth String     @default("imageWidth")
-  template String   @default("JWZ")
+  template String   @default("JBW")
 }
 
 

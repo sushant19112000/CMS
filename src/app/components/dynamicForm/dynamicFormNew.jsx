@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) => {
+export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl, optin,buttonBgColor }) => {
     const router = useRouter();
+    const [buttonBackgroundColor,setButtonBackgroundColor]=useState('#8596b0')
     const [formData, setFormData] = useState(data);
     const [formValues, setFormValues] = useState({});
     const handleInputChange = (fieldName, value) => {
@@ -11,6 +12,10 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
             [fieldName]: value
         }));
     };
+
+    useEffect(()=>{
+         setButtonBackgroundColor(buttonBgColor)
+    },[])
 
 
     const postData = async (e) => {
@@ -36,10 +41,10 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
 
     return (
         <div className='col'>
-          
+
             <form onSubmit={(e) => postData(e)} style={{
                 fontSize: '16px', fontFamily:
-                    'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: '600'
+                    'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
             }}>
                 {formData.normalFields && formData.normalFields.map(field => (
                     <div key={field.id} className='mb-2'>
@@ -49,7 +54,10 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
                                 <>
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <label htmlFor={field.id}>{field.label}</label>
+                                            <label style={{
+                                                fontSize: '16px', fontFamily:
+                                                    'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: '500'
+                                            }} htmlFor={field.id}>{field.label}</label>
                                         </div>
 
                                         <div className="col">
@@ -72,7 +80,10 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
 
 
                                         <div className="col-md-3">
-                                            <label htmlFor={field.id}>{field.label}</label>
+                                            <label style={{
+                                                fontSize: '16px', fontFamily:
+                                                    'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: '500'
+                                            }} htmlFor={field.id}>{field.label}</label>
                                         </div>
 
                                         <div className="col">
@@ -94,7 +105,10 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
                                     <div className="row">
 
                                         <div className="col-md-3">
-                                            <label htmlFor={field.id}>{field.label}</label>
+                                            <label style={{
+                                                fontSize: '16px', fontFamily:
+                                                    'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: '500'
+                                            }} htmlFor={field.id}>{field.label}</label>
                                         </div>
                                         <div className="col">
 
@@ -133,7 +147,10 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
                                     <>
                                         <div className="">
                                             <div className="mb-2">
-                                                <label htmlFor={field.id}>{field.label}</label>
+                                                <label style={{
+                                                    fontSize: '16px', fontFamily:
+                                                        'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: '500'
+                                                }} htmlFor={field.id}>{field.label}</label>
                                             </div>
 
                                             <div className="">
@@ -154,7 +171,10 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
                                     <>
                                         <div className="">
                                             <div className="mb-2">
-                                                <label htmlFor={field.id}>{field.label}</label>
+                                                <label style={{
+                                                    fontSize: '16px', fontFamily:
+                                                        'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: '500'
+                                                }} htmlFor={field.id}>{field.label}</label>
                                             </div>
 
                                             <div className="">
@@ -176,7 +196,10 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
                                         <div className="">
 
                                             <div className="mb-2">
-                                                <label htmlFor={field.id}>{field.label}</label>
+                                                <label style={{
+                                                    fontSize: '16px', fontFamily:
+                                                        'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: '500'
+                                                }} htmlFor={field.id}>{field.label}</label>
                                             </div>
                                             <div className="">
 
@@ -209,19 +232,22 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
 
                 <div
                     className="form-control mb-4"
-                    style={{ display: "flex", flexDirection: "column",backgroundColor:'transparent',border:'0' }}
+                    style={{ display: "flex", flexDirection: "column", backgroundColor: 'transparent', border: '0', fontSize: '16px', fontFamily:
+                    'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'}}
                 >
-                    <p style={{backgroundColor:'transparent',border:'0'}}>
+                    <p style={{ backgroundColor: 'transparent', border: '0', fontSize: '16px', fontFamily:
+                                                        'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'}}>
                         By submitting, person agrees to {data.privacy.companyName} processing their info and
                         contacting them with regards to the event. You may unsubscribe at any time.
                         {data.privacy.companyName} web sites and communications are subject to their
-                        <a href={data.privacy.link} style={{ textDecoration: "None" }}>Privacy Notice</a>.
+                        <a href={data.privacy.link} style={{ textDecoration: "None" }}> Privacy Notice</a>.
                         <br /> <br />
                         To comply with the new GDPR regulations and ensure you continue to receive
                         relevant communications from {data.privacy.companyName} on our offerings and future events,
                         we are updating our communication preferences.
                     </p>
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{ display: "flex", alignItems: "center", fontSize: '16px', fontFamily:
+                                                        'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'  }}>
                         <input
                             style={{ width: "fit-content", margin: "revert" }}
                             type="checkbox"
@@ -229,18 +255,19 @@ export const DynamicFormNew = ({ data, landingpageurl, downloadpageurl,optin}) =
                             required=""
                             id="email-me-check"
                         />
-                        <p style={{ marginLeft: 10, marginTop: 20, marginBottom: 0 }}>
+                        <p style={{ marginLeft: 10, marginTop: 20, marginBottom: 0 , fontSize: '16px', fontFamily:
+                                                        'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"' }}>
                             Yes, I agree to the data protection declaration of {data.privacy.companyName} and
                             or/it's affiliates.
                         </p>
                     </div>
-                    <div  dangerouslySetInnerHTML={{ __html: optin }}></div>
+                    <div dangerouslySetInnerHTML={{ __html: optin }}></div>
                 </div>
 
-               
 
 
-                <button className='btn ' style={{backgroundColor:'#8596b0',width:'140px',color:'white'}} type='submit' >Download</button>
+
+                <button className='btn ' style={{ backgroundColor:buttonBackgroundColor, width: '140px', color: 'white' }} type='submit' >Download</button>
             </form>
         </div>
     );

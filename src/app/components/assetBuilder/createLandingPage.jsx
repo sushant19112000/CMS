@@ -7,8 +7,6 @@ import { LandingPreview } from "./previews/landingPagePreview";
 import { LpmLandingPreview } from "./previews/LPM/LpmLandingPreview";
 import { Button } from 'react-bootstrap';
 
-
-
 export default function CreateLandingPage({ nextTab, clear }) {
     const [url, setUrl] = useState("")
     const [title, setTitle] = useState("")
@@ -29,24 +27,21 @@ export default function CreateLandingPage({ nextTab, clear }) {
     const [selectedTemplate, setSelectedTemplate] = useState("")
     const [alert, setAlert] = useState(false)
 
-    
+
     const scrollToTop=()=>{
         window.scrollTo({
             top: 0,
             behavior: 'smooth',
         });
     }
-
     const closeModal = () => {
         setShowLandingPreview(false)
     }
-
     const showModal = () => {
         if (landingpage.title) {
             setShowLandingPreview(true)
         }
     }
-
     const closeModalLpm = () => {
         setShowLpmLandingPreview(false)
 
@@ -56,7 +51,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
             setShowLpmLandingPreview(true)
         }
     }
-
     const handleHeaderLogoChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -69,7 +63,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
             reader.readAsDataURL(file);
         }
     };
-
     const handleSubmit = (event) => {
         event.preventDefault();
         setLandingPage({
@@ -89,10 +82,8 @@ export default function CreateLandingPage({ nextTab, clear }) {
             headerBackgroundColor: headerBackgroundColor
         })
         scrollToTop()
-        setPreviewDisabled(false)
-     
+        setPreviewDisabled(false) 
     };
-
     const handleClear = () => {
         setLandingPage({
             title: "",
@@ -116,14 +107,16 @@ export default function CreateLandingPage({ nextTab, clear }) {
         setPreviewDisabled(true)
     };
 
-
     const handleNext = () => {
-        selectedTemplate != "" ? nextTab('mailer') : setAlert(true) && scrollToTop();
+        if (selectedTemplate==""){
+            setAlert(true)
+        }
+        else{
+            setLandingPage({...landingpage,template:selectedTemplate})
+            nextTab('mailer')
+        }
     }
-
-
     return (
-
         <>
             <div className="container">
                 <div className="row  mb-3 justify-content-center" >
@@ -131,14 +124,11 @@ export default function CreateLandingPage({ nextTab, clear }) {
                         <div className="text-center mb-4">
                             <h3 style={{ fontWeight: '900' }}>Create landing Page</h3>
                         </div>
-
                         <div>
                             {alert && (
                                 <div><h4>Please select a template</h4></div>
                             )}
-
                             <div className="d-flex mb-3" >
-
                                 <div className="row " >
                                     <div className="col-md-5" >
                                         <div className="row" style={{ margin: 0, padding: 0, backgroundColor: 'white', border: '1px solid grey' }}>
@@ -163,15 +153,12 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                         </div>
                                     </div>
                                     <div className="col-md-5">
-
                                         <div className="row" style={{ margin: 0, padding: 0, backgroundColor: 'white', border: '1px solid grey' }}>
                                             <h4>LPM </h4>
                                             <div className="col-md-6">
                                                 <div className="row" >
                                                     <div className="col-md-1 pt-1 " style={{ border: '0' }}>
-
                                                         <input className="" onChange={((e) => setSelectedTemplate('lpm'))} type="checkbox" label="Checkbox Label" disabled={previewDisabled} />
-
                                                     </div>
                                                     <div className="col" style={{ paddingTop: '0.3rem' }}>
                                                         <span > Select</span>
@@ -183,21 +170,14 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                                     Preview
                                                 </Button>
                                             </div>
-
                                         </div>
-
-
                                     </div>
                                     <div className="col-md-2">
                                         <button className="btn btn-danger" disabled={previewDisabled} onClick={handleClear}>ClearData</button>
-
                                     </div>
-
-
                                 </div>
 
                             </div>
-
                             {
                                 showLandingPreview && !previewDisabled && (
                                     <>
@@ -213,7 +193,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                 )
                             }
                         </div>
-
                         <form onSubmit={handleSubmit}>
                             <div className="row  mb-3">
                                 <div className="col-md-3">
@@ -223,27 +202,22 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                     <input className="form-control" type="text" value={url} onChange={e => setUrl(e.target.value)} required />
                                 </div>
                             </div>
-
                             <div className="row  mb-3">
                                 <div className="col-md-3">
                                     Title:
                                 </div>
                                 <div className="col">
                                     <input type="text" className="form-control" value={title} onChange={e => setTitle(e.target.value)} required />
-
                                 </div>
                             </div>
-
                             <div className="row  mb-3">
                                 <div className="col-md-3">
                                     Title Background Color
                                 </div>
                                 <div className="col">
                                     <input type="text" className="form-control" value={headerBackgroundColor} onChange={e => setHeaderBackgroundColor(e.target.value)} />
-
                                 </div>
                             </div>
-
                             <div className="row  mb-2">
                                 <div className="col-md-3">
                                     Header Logo:
@@ -253,7 +227,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                     {logoPreview && <img src={logoPreview} alt="Banner Preview" style={{ maxWidth: '100%', marginTop: '10px', marginTop: '10px', width: `${imageWidth}`, height: `${imageHeight}` }} />}
                                 </div>
                             </div>
-
                             <div className="row  mb-3">
                                 <div className="col-md-3">
                                     Logo Height:
@@ -262,7 +235,6 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                     <input type="text" className="form-control" value={imageHeight} onChange={e => setImageHeight(e.target.value)} />
                                 </div>
                             </div>
-
                             <div className="row  mb-3">
                                 <div className="col-md-3">
                                     Logo Width:
@@ -271,78 +243,43 @@ export default function CreateLandingPage({ nextTab, clear }) {
                                     <input type="text" className="form-control" value={imageWidth} onChange={e => setImageWidth(e.target.value)} />
                                 </div>
                             </div>
-
-
                             <div className="row  mb-3">
                                 <div className="col-md-3">
                                     Form Data:
-
                                 </div>
                                 <div className="col">
                                     <textarea rows={15} value={formdata} className="form-control" onChange={e => setFormData(e.target.value)} placeholder="Use Json " />
-
                                 </div>
                             </div>
-
                             <div className="row  mb-3">
                                 <div className="col-md-3">
                                     Content:
-
                                 </div>
                                 <div className="col">
                                     <textarea rows={10} value={content} className="form-control" onChange={e => setContent(e.target.value)} placeholder="Use Html " />
-
                                 </div>
                             </div>
-
                             <div className="row  mb-3">
                                 <div className="col-md-3">
                                     Optin
-
                                 </div>
                                 <div className="col">
                                     <textarea rows={5} value={optin} className="form-control" onChange={e => setOptin(e.target.value)} placeholder="Use Html " />
-
                                 </div>
                             </div>
-
-
                             <div className="d-flex">
-                                <div >
+                                <div>
                                     <button className="btn btn-primary" style={{ width: '120px' }} type="submit">Save</button>
                                 </div>
                                 <div className='ms-auto'>
                                     <button className="btn " style={{ width: '120px', backgroundColor: 'orangered', color: 'white' }} onClick={handleNext}>Next</button>
                                 </div>
                             </div>
-
                         </form>
-
-
-
-
-
-
                     </div>
                 </div>
-
-
-
             </div>
-
-
-
-
-
-
-
-
-
-
         </>
-
-
-
     )
 }
 

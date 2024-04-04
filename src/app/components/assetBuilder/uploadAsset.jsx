@@ -4,13 +4,10 @@ import { landingPageState } from '@/app/atoms/landingpage'
 import { mailerState } from '@/app/atoms/mailer'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { BsArrowUp } from "react-icons/bs";
-import { BsCheckLg } from "react-icons/bs";
+
 
 
 export const UploadAsset = () => {
-
-  //Global Data stored
   const [mailer, setMailer] = useRecoilState(mailerState)
   const [downloadPage, setDownloadPage] = useRecoilState(downloadPageState)
   const [landingPage, setLandingPage] = useRecoilState(landingPageState)
@@ -24,8 +21,6 @@ export const UploadAsset = () => {
   const [pdfFile, setPdfFile] = useState(null)
   const [alert, setAlert] = useState("")
 
-
-
   useEffect(() => {
     parseMailerData();
     parseDownloadPageData();
@@ -35,8 +30,6 @@ export const UploadAsset = () => {
     setMailerBanner(mailer.banner)
     setLogo(landingPage.headerLogoFile)
   }, [mailer, downloadPage, landingPage])
-
-
 
   const parseMailerData = () => {
     const temp = {
@@ -53,7 +46,6 @@ export const UploadAsset = () => {
     }
     setMailerData(temp)
   }
-
   const parseLandingPageData = () => {
     const temp = {
       url: landingPage.url,
@@ -69,7 +61,6 @@ export const UploadAsset = () => {
     }
     setLandingPageData(temp)
   }
-
   const parseDownloadPageData = () => {
     const temp = {
       url: downloadPage.url,
@@ -84,7 +75,6 @@ export const UploadAsset = () => {
     }
     setDownloadPageData(temp)
   }
-
   const uploadFunction = async (file, type) => {
     console.log('file', file)
     if (!file) return;
@@ -96,8 +86,6 @@ export const UploadAsset = () => {
     });
     return response;
   }
-
-
   const postData = async (data, type) => {
     try {
       const response = await fetch(`/api/${type}`, {
@@ -112,39 +100,28 @@ export const UploadAsset = () => {
       setAlert(`error uploading ${type}`)
     }
   }
-
-
-
   const uploadCampaign = async () => {
     console.log(campaign.code, campaign.name)
     try {
       if (campaign.name === "" && campaign.code === "") return;
       if (campaign.code !== "" && campaign.name == "") { campaignUploadStatus.current = true }
       else {
-        //upload campaign as its new 
         let temp = {
           name: campaign.name,
           code: campaign.code,
         }
         const uploadCampaignResponse = await uploadFunction(temp, 'campaign')
-
       }
-
     }
     catch (e) {
       console.log(e)
       setAlert("error uploading campaign")
     }
   }
-
-
   const uploadLogo = async () => {
-    // Extract file extension from imageUrl
     const fileExtension = landingPage.imageUrl.split('.').pop();
-    console.log(logo, 'blob')
     if (logo instanceof Blob) {
       const file = new File([logo], landingPage.imageUrl);
-      console.log(file); // Verify the File object
       const logoUploadResponse = await uploadFunction(file, 'logos')
       if (logoUploadResponse.ok) {
         setAlert("Logo uploaded")
@@ -154,11 +131,7 @@ export const UploadAsset = () => {
       setAlert("please upload logo again in landing page ")
     }
   }
-
-
-
   const uploadDownloadBanner = async () => {
-
     if (downloadBanner instanceof Blob) {
       const file = new File([downloadBanner], downloadPage.imageUrl);
       console.log(file); // Verify the File object
@@ -172,13 +145,11 @@ export const UploadAsset = () => {
       setAlert("please upload Download Banner  ")
     }
   }
-
   const uploadPdf = async () => {
     if (pdfFile instanceof Blob) {
       const file = new File([pdfFile], downloadPage.pdfSrc);
       console.log(file); // Verify the File object
       const downloadPdfUploadResponse = await uploadFunction(file, 'whitepapers')
-
       if (downloadPdfUploadResponse.ok) {
         setAlert("pdf uploaded")
       }
@@ -187,14 +158,10 @@ export const UploadAsset = () => {
       setAlert("Error uploading pdf")
     }
   }
-
   const uploadMailerBanner = async () => {
-    console.log('mailer banner')
     if (mailerBanner instanceof Blob) {
       const file = new File([mailerBanner], mailer.imageUrl);
-      console.log(file); // Verify the File object
       const mailerUploadResponse = await uploadFunction(file, 'mailerbanners')
-
       if (mailerUploadResponse.ok) {
         setAlert('mailer banner uploaded')
       }
@@ -203,83 +170,25 @@ export const UploadAsset = () => {
       setAlert("Error uploading mailer banner ")
     }
   }
-
   const uploadLandingPage = async () => {
     const uploadLandingPageResponse = await postData(landingPageData, 'landingpage')
     if (uploadLandingPageResponse.ok) {
       setAlert("landing page uploaded")
     }
   }
-
   const uploadDownloadPage = async () => {
     const uploadDownloadDataResponse = await postData(downloadPageData, 'downloadpage')
     if (uploadDownloadDataResponse.ok) {
       setAlert("download page uploaded")
     }
   }
-
   const uploadMailer = async () => {
     const uploadMailerResponse = await postData(mailerData, 'mailer')
     if (uploadMailerResponse.ok) {
       setAlert("mailer uploaded")
     }
   }
-
-
-  const handleClearCampaign = () => {
-    setCampaign({ name: '', code: '' });
-  };
-
-  const handleClearLandingPage = () => {
-    setLandingPage({
-      title: "",
-      url: "",
-      data: "",
-      formdata: "",
-      campaignCode: "",
-      downloadpageurl: "",
-      headerLogoFile: "",
-      content: "",
-      imageUrl: "",
-      imageHeight: "",
-      imageWidth: ""
-    })
-    
-  };
-
-  const handleClearDownloadPage = () => {
-    setDownloadPage({
-      title: "",
-      url: "",
-      campaignCode: "",
-      imageUrl: "",
-      imageHeight: "",
-      imageWidth: "",
-    })
-  }
-
-
-  const handleClearMailer = () => {
-    setMailer({
-      title: "",
-      url: "",
-      campaignCode: "",
-      landingPageUrl: "",
-      content: "",
-      imageUrl: "",
-      imageHeight: "",
-      imageWidth: "",
-      banner: "",
-    })
-
-  };
-
-
-
-
-
   const uploadAll = async () => {
-
     await uploadCampaign()
     await uploadLogo()
     await uploadDownloadBanner()
@@ -291,10 +200,7 @@ export const UploadAsset = () => {
     await uploadLandingPage()
     await uploadMailer()
     setAlert("Asset uploaded")
-
   }
-
-
   return (
     <div>
       {alert && (
@@ -312,9 +218,6 @@ export const UploadAsset = () => {
           </div>
         </div>
       </div>
-
-
-
     </div>
 
 

@@ -7,7 +7,7 @@ const { persistAtom } = recoilPersist()
 
 
 export const downloadPageState = atom({
-  key: "downloadPage", // unique ID (with respect to other atoms/selectors)
+  key: "downloadPage", 
   default: {
     title:"",
     url:"",
@@ -17,7 +17,8 @@ export const downloadPageState = atom({
     imageWidth:"", 
     banner:null,
     pdf:null,
-    link:""  
+    link:"" ,
+    pdfSrc:""
   }, // default value (aka initial value)
   effects_UNSTABLE:[persistAtom]
 });

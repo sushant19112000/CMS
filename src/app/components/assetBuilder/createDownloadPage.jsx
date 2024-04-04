@@ -3,6 +3,7 @@ import { downloadPageState } from '@/app/atoms/downloadpage';
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil'
 import { DownloadPreview } from './previews/downloadPagePreview';
+
 export const CreateDownloadPage = ({ nextTab, clear }) => {
   const [download, setDownload] = useRecoilState(downloadPageState)
   const [title, setTitle] = useState("");
@@ -16,30 +17,15 @@ export const CreateDownloadPage = ({ nextTab, clear }) => {
   const [imageWidth, setImageWidth] = useState('auto')
   const [url, setUrl] = useState("")
   const [showDownloadPreview, setShowDownloadPreview] = useState(false)
-
-
-
-  const [previewTitle, setPreviewTitle] = useState("")
-  const [previewImage, setPreviewImage] = useState("")
-  const [previewPdf, setPreviewPdf] = useState("")
+  const [previewDisabled, setPreviewDisabled] = useState(true)
 
   const closeModal = () => {
     setShowDownloadPreview(false)
   }
-
+  
   const showModal = () => {
-    if (download.title) {
       setShowDownloadPreview(true)
-    }
   }
-
-
-  useEffect(() => {
-    setPreviewTitle(download.title)
-    setPreviewImage(download.imageUrl)
-    setPreviewPdf(download.pdfSrc)
-  }, [download])
-
 
   const handleBannerChange = (event) => {
     const file = event.target.files[0];
@@ -63,7 +49,6 @@ export const CreateDownloadPage = ({ nextTab, clear }) => {
     }
   }
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setDownload({
@@ -76,9 +61,9 @@ export const CreateDownloadPage = ({ nextTab, clear }) => {
       imageWidth: imageWidth,
       pdfSrc: pdfSrc,
       link: link,
-      pdf: pdfFile!=null?new Blob([pdfFile], { type: pdfFile.type }):"",
+      pdf: pdfFile != null ? new Blob([pdfFile], { type: pdfFile.type }) : "",
     })
-    // Perform submission logic here
+    setPreviewDisabled(false)
   };
 
   const handleNext = () => {
@@ -105,33 +90,26 @@ export const CreateDownloadPage = ({ nextTab, clear }) => {
             <h3 style={{ fontWeight: '900' }}>Create Download Page</h3>
           </div>
           <div>
-            {
-              previewTitle && (
+
+            <div className='mb-3'>
+
+              <div className="d-flex" >
                 <div>
-                 
-                  <div className="d-flex">
-                    <div>
-                      <button className='btn btn-primary' onClick={showModal}>
-                        Preview
-                      </button>
+                  <button className='btn btn-primary' disabled={previewDisabled} onClick={showModal}>
+                    Preview
+                  </button>
 
-                    </div>
-                    <div className='ms-auto'>
-
-                      <button className='btn btn-danger' onClick={handleClearSelection}> Clear Data</button>
-
-                    </div>
-
-                  </div>
-               
-
-
-                  <hr></hr>
                 </div>
-              )
-            }
+                <div className='ms-auto'>
+
+                  <button className='btn btn-danger' disabled={previewDisabled} onClick={handleClearSelection}> Clear Data</button>
+
+                </div>
+              </div>
+            
+            </div>
             {
-              showDownloadPreview && previewTitle && (
+              showDownloadPreview  && (
                 <>
                   <DownloadPreview temp={{ banner: download.banner, pdf: download.pdf, imageWidth: imageWidth, imageHeight: imageHeight }} closeModal={closeModal} />
                 </>

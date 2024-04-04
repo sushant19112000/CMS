@@ -5,9 +5,11 @@ import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { LpmMailerPreview } from './previews/LPM/LpmMailerPreview';
 import { JbwMailerPreview } from './previews/JBW/JbwMailerPreview';
-import { MailerPreview } from './previews/mailerPreview';
 import { Button } from 'react-bootstrap';
+import { useClearData } from '@/app/hooks/useClearData';
+
 export const CreateMailer = ({ nextTab, clear }) => {
+    const clearData=useClearData()
     const [url, setUrl] = useState("")
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("");
@@ -18,12 +20,8 @@ export const CreateMailer = ({ nextTab, clear }) => {
     const [imageWidth, setImageWidth] = useState('auto')
     const [mailer, setMailer] = useRecoilState(mailerState)
     const [landingpage, setLandingPage] = useRecoilState(landingPageState)
-    const [previewTitle, setPreviewTitle] = useState("")
-    const [previewImage, setPreviewImage] = useState("")
-    const [previewUrl, setPreviewUrl] = useState("")
     const [logoWidth, setLogoWidth] = useState("auto")
     const [logoHeight, setLogoHeight] = useState("auto")
-    const [showMailerPreview, setShowMailerPreview] = useState(false)
     const [unsubscribe, setUnsubscribe] = useState("https://martechavenue.com/unsubscribe-page")
     const [updateProfile, setUpdateProfile] = useState("https://martechavenue.com/update-your-profile-page")
     const [privacy, setPrivacy] = useState("https://martechavenue.com/privacy-policy")
@@ -33,22 +31,14 @@ export const CreateMailer = ({ nextTab, clear }) => {
     const [showJbwMailer, setShowJbwMailer] = useState(false)
     const [showLpmMailer, setShowLpmMailer] = useState(false)
     const [alert, setAlert] = useState(false)
-   
 
+    
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth',
         });
     }
-
-    useEffect(() => {
-        setPreviewTitle(mailer.title)
-        setPreviewImage(mailer.imageUrl)
-        setPreviewUrl(mailer.url)
-    }, [mailer])
-
-
 
     const handleBannerChange = (event) => {
         const file = event.target.files[0];
@@ -62,6 +52,7 @@ export const CreateMailer = ({ nextTab, clear }) => {
             reader.readAsDataURL(file);
         }
     };
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -81,44 +72,49 @@ export const CreateMailer = ({ nextTab, clear }) => {
             unsubscribe: unsubscribe,
             privacyLink: privacy,
             updateProfile: updateProfile,
-            footer: footer
+            footer: footer,
 
         })
         setPreviewDisabled(false)
         scrollToTop()
-
-        // Perform submission logic here
     };
+
+
     const handleNext = () => {
-        selectedTemplate != "" ? nextTab('upload') : setAlert(true) && scrollToTop();
+        if (selectedTemplate==""){
+            setAlert(true)
+        }
+        else{
+            setMailer({...mailer,template:selectedTemplate})
+            nextTab('upload')
+        }
+       
     }
 
-
-
     const handleClear = () => {
-        setMailer({
-            title: "",
-            url: "",
-            campaignCode: "",
-            landingPageUrl: "",
-            content: "",
-            imageUrl: "",
-            imageHeight: "",
-            imageWidth: "",
-            banner: "",
-            logoHeight: '',
-            logoWidth: '',
-            logoHeight: "auto",
-            logoWidth: "auto",
-            unsubscribe: "https://martechavenue.com/unsubscribe-page",
-            privacyLink: "https://martechavenue.com/privacy-policy",
-            updateProfile: "https://martechavenue.com/update-your-profile-page",
-            footer: "561 7th Ave 4th fl, New York NY 10018, United States"
+        // setMailer({
+        //     title: "",
+        //     url: "",
+        //     campaignCode: "",
+        //     landingPageUrl: "",
+        //     content: "",
+        //     imageUrl: "",
+        //     imageHeight: "",
+        //     imageWidth: "",
+        //     banner: "",
+        //     logoHeight: '',
+        //     logoWidth: '',
+        //     logoHeight: "auto",
+        //     logoWidth: "auto",
+        //     unsubscribe: "https://martechavenue.com/unsubscribe-page",
+        //     privacyLink: "https://martechavenue.com/privacy-policy",
+        //     updateProfile: "https://martechavenue.com/update-your-profile-page",
+        //     footer: "561 7th Ave 4th fl, New York NY 10018, United States"
 
-        })
+        // })
+        clearData('mailer')
         setPreviewDisabled(true)
         clear('mailer')
-        // Perform submission logic here
     };
 
     const closeJbwModal = () => {
@@ -128,8 +124,6 @@ export const CreateMailer = ({ nextTab, clear }) => {
     const closeLpmModal = () => {
         setShowLpmMailer(false)
     }
-   
-    
 
     return (
         <div className="container">
@@ -142,6 +136,9 @@ export const CreateMailer = ({ nextTab, clear }) => {
                     </div>
 
                     <div className="d-flex mb-3" >
+                    {alert && (
+                                <div><h4>Please select a template</h4></div>
+                            )}
 
                         <div className="row " >
                             <div className="col-md-5" >
@@ -201,41 +198,6 @@ export const CreateMailer = ({ nextTab, clear }) => {
                         </div>
 
                     </div>
-                    {/* <div>
-                        {
-                            previewTitle && (
-                                <div>
-
-                                    <div className="d-flex">
-                                        <div>
-                                            <button className='btn btn-primary' onClick={showModal}>
-                                                Preview
-                                            </button>
-
-                                        </div>
-                                        <div className='ms-auto'>
-
-                                            <button className='btn btn-danger' onClick={handleClear}> Clear Data</button>
-
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <hr></hr>
-                                </div>
-                            )
-                        }
-                        {
-                            showMailerPreview && previewTitle && (
-                                <>
-                                    <MailerPreview temp={mailer} closeModal={closeModal} />
-                                </>
-                            )
-                        }
-                    </div> */}
-
                     {
                         showJbwMailer && !previewDisabled && (
                             <>
@@ -332,17 +294,6 @@ export const CreateMailer = ({ nextTab, clear }) => {
                             </div>
                         </div>
 
-
-                        <div className="row mb-3">
-                            <div className="col-md-3">
-                                Logo Width
-                            </div>
-                            <div className="col">
-                                <input type="text" className="form-control" value={logoWidth} onChange={((e) => setLogoWidth(e.target.value))} required />
-                            </div>
-                        </div>
-
-
                         <div className="row mb-3">
                             <div className="col-md-3">
                                 Unsubscribe
@@ -379,13 +330,11 @@ export const CreateMailer = ({ nextTab, clear }) => {
                                 <button className="btn " style={{ width: '120px', backgroundColor: 'orangered', color: 'white' }} onClick={handleNext}>Next</button>
                             </div>
                         </div>
-
-
-
-
                     </form>
                 </div>
             </div>
         </div>
     );
 };
+
+

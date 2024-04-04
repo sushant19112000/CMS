@@ -84,7 +84,7 @@ export const Main = () => {
                             <CreateCampaign nextTab={next} clear={cleared} suppressHydrationWarning />
                         </Tab>
 
-                        <Tab eventKey="downloadpage" title={<span>Download Page<BsArrowRight className='ms-1' /></span>}  suppressHydrationWarning>
+                        <Tab eventKey="downloadpage" title={<span>Download Page<BsArrowRight className='ms-1' /></span>}   suppressHydrationWarning>
                             <CreateDownloadPage nextTab={next} clear={cleared} />
                         </Tab>
 
@@ -93,7 +93,7 @@ export const Main = () => {
                         </Tab>
 
 
-                        <Tab eventKey="mailer" title={<span>Mailer<BsArrowRight className='ms-1' /></span>}  suppressHydrationWarning >
+                        <Tab eventKey="mailer" title={<span>Mailer<BsArrowRight className='ms-1' /></span>}   suppressHydrationWarning >
                             <CreateMailer   nextTab={next} clear={cleared}/>
                         </Tab>
 

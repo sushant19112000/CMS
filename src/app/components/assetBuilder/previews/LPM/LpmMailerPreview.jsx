@@ -7,7 +7,6 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
     const [fullscreen, setFullscreen] = useState(true);
     const [show, setShow] = useState(true);
     const [bannerPreview, setBannerPreview] = useState(null)
-    const [banner, setBanner] = useState(data.banner)
     const [logo,setLogo]=useState(null)
     
     useEffect(() => {
@@ -15,13 +14,10 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
         convertLogoBlobToFile(data.logo)
     }, [data])
 
-
-
     const convertBlobToFile = (banner) => {
-        console.log(banner)
         if (banner instanceof Blob) {
             const file = new File([banner], `${banner.type}`);
-            console.log(file)
+            
             if (file) {
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -30,17 +26,11 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
                 };
                 reader.readAsDataURL(file);
             }
-
-            // Verify the File object
         }
-
     }
-
-
     const convertLogoBlobToFile = (logo) => {
         if (logo instanceof Blob) {
-            const file = new File([logo], `${logo.type}`);
-      
+            const file = new File([logo], `${logo.type}`);      
             if (file) {
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -48,21 +38,11 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
                 };
                 reader.readAsDataURL(file);
             }
-
-            // Verify the File object
         }
-
     }
     const handleClose = () => { setShow(false); closeModal() }
-
-    const handleShow = () => { setShow(true); }
-
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
             <Modal show={show} onHide={handleClose} fullscreen={fullscreen}>
                 <Modal.Header closeButton>
                     <Modal.Title>
@@ -143,7 +123,6 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
                                                 <tr>
                                                     <td></td>
                                                 </tr>
-                                                {/* /Hero */} {/* Primary Content */}
                                                 <tr>
                                                     <td>
                                                         <table
@@ -219,7 +198,7 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
                                                                                             cellPadding={0}
                                                                                             cellSpacing={0}
                                                                                         >
-                                                                                            {/* HERO BANNER START */}
+                                                                                        
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td>
@@ -408,7 +387,7 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
-                                                                                        {/* HERO BANNER END */}
+                                                                                
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -420,7 +399,7 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
                                                                                             cellSpacing={0}
                                                                                             style={{ backgroundColor: "#ffffff" }}
                                                                                         >
-                                                                                            {/* INTELLIGENT NEWS START */}
+                                                                                         
                                                                                             <tbody></tbody>
                                                                                         </table>
                                                                                         <table
@@ -511,7 +490,7 @@ export const LpmMailerPreview = ({ temp, closeModal }) => {
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
-                                                                        {/* INTELLIGENT NEWS END */}
+                                                                    
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
